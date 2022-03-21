@@ -1,0 +1,7 @@
+Service {{ include "helm-n-pods-example.fullname" . }}-service listening at {{ .Values.ports.service }}
+
+{{ .Values.numberOfEqualPods }} pods have been created.
+
+{{- range $i, $e := until (.Values.numberOfEqualPods | int) }}
+Pod {{ include "helm-n-pods-example.fullname" $ }}-{{ . }} listening at {{ $.Values.ports.pod }}
+{{- end }}

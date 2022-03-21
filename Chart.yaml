@@ -1,0 +1,9 @@
+apiVersion: v2
+name: helm-n-pods-example
+description: Sometimes you just need n equals pods without a ReplicaSet. This is an example about how to get it without copy-paste n times your pod manifest.
+
+type: application
+
+version: 0.0.0-SNAPSHOT
+
+appVersion: "openshift"

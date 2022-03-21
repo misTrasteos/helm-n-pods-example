@@ -1,0 +1,23 @@
+{{- range $i, $e := until (.Values.numberOfEqualPods | int) }}
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ include "helm-n-pods-example.fullname" $ }}-{{ $i }}
+  labels:
+    {{- include "helm-n-pods-example.labels" $ | nindent 4 }}
+spec:
+  containers:
+  - name: {{ $.Chart.Name }}-{{ $i }}
+    image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+    imagePullPolicy: {{ $.Values.image.pullPolicy }}
+    ports:
+    - name: http
+      containerPort: {{ $.Values.ports.pod }}
+      protocol: TCP
+    env:
+    - name: F5DEMO_APP
+      value: "backend"
+    - name: F5DEMO_NODENAME
+      value: backend-{{ $i }}
+{{- end }}

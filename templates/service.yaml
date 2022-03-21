@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "helm-n-pods-example.fullname" . }}-service
+  labels:
+    {{- include "helm-n-pods-example.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+  - port: {{ $.Values.ports.service }}
+    targetPort: {{ $.Values.ports.pod }}
+    protocol: TCP
+    name: http
+  selector:
+    {{- include "helm-n-pods-example.selectorLabels" . | nindent 4 }}

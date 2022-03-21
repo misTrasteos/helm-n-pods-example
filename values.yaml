@@ -1,0 +1,10 @@
+image:
+  repository: f5devcentral/f5-demo-httpd
+  pullPolicy: IfNotPresent
+  tag: "openshift"
+
+ports:
+  service: 8080
+  pod: 8080
+
+numberOfEqualPods: 2

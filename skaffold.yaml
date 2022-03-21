@@ -1,0 +1,29 @@
+apiVersion: skaffold/v2beta23
+kind: Config
+metadata:
+  name: helm-n-pods-example
+deploy:
+  helm:
+    releases:
+    - name: "{{ .HELM_SKAFFOLD_RELEASE_NAME }}"
+      chartPath: .
+      setValues:
+        ports.service: 8080
+        ports.pod: 8080
+
+portForward:
+- resourceType: service
+  resourceName: "{{ .HELM_SKAFFOLD_RELEASE_NAME }}-helm-n-pods-example-service"
+  namespace: default
+  port: 8080
+  localPort: 10000
+- resourceType: pod
+  resourceName: "{{ .HELM_SKAFFOLD_RELEASE_NAME }}-helm-n-pods-example-0"
+  namespace: default
+  port: 8080
+  localPort: 11000
+- resourceType: pod
+  resourceName: "{{ .HELM_SKAFFOLD_RELEASE_NAME }}-helm-n-pods-example-1"
+  namespace: default
+  port: 8080
+  localPort: 11001
